@@ -1,0 +1,21 @@
+{
+    "name": "rpi-2b",
+    "version": "1.0.6",
+    "description": "raspberry board",
+    "author": "Ruff",
+    "ruff":  {
+        "session-format": {
+            "address": {
+                "type": "string",
+                "description": "designate IP address",
+                "required": true,
+                "visible": true
+            }
+        },
+        "dependencies": {
+        }
+    },
+    "engines": {
+        "ruff": ">=1.3.0 <2.0.0"
+    }
+}

@@ -3,9 +3,21 @@
     "version": "0.1.0",
     "description": "",
     "author": "",
-    "main": "src/index.js",
+    "main": "build/index.js",
     "ruff": {
-        "dependencies": {},
+        "dependencies": {
+            "socket.io-client": "npm:^2.0.4"
+        },
         "version": 1
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "webpack": "^3.8.1"
+    },
+    "scripts": {
+        "build": "babel src -d build",
+        "predeploy": "npm run build",
+        "deploy": "rap deploy -s",
+        "dev": "nodemon -e js --exec npm run deploy"
     }
 }

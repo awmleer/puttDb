@@ -1,8 +1,8 @@
 'use strict';
 
-var  io = require('socket.io-client');
+import io from 'socket.io-client';
 var serverUrl = 'http://192.168.0.3/';
-var conn = io.connect(serverUrl);
+const socket = io(serverUrl);
 
 $.ready(function (error) {
     if (error) {

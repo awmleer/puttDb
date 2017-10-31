@@ -15,9 +15,8 @@
         "webpack": "^3.8.1"
     },
     "scripts": {
-        "build": "babel src -d build",
+        "build": "webpack --config webpack.config.js",
         "predeploy": "npm run build",
-        "deploy": "rap deploy -s",
-        "dev": "nodemon -e js --exec npm run deploy"
+        "deploy": "rap deploy -s"
     }
 }

@@ -6,6 +6,7 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist')
     },
+    target: 'node',
     module: {
         rules: [
             {
@@ -14,7 +15,9 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env']
+                        presets: [
+                            ["env"]
+                        ]
                     }
                 }
             }

@@ -1,6 +1,6 @@
 # API文档
 
-## 数据传输格式
+## socket数据传输格式
 
 ```json
 {
@@ -9,7 +9,18 @@
 }
 ```
 
-## `C->S` subscribe
+## http response格式
+
+```json
+{
+  "status":"success"|"error",
+  "payload":<any>
+}
+```
+
+## `POST` subscribe
+
+request:
 
 ```json
 {
@@ -17,7 +28,13 @@
 }
 ```
 
-## `S->C` subscribeSuccess
+response:
+
+```
+null
+```
+
+## `POST` unsubscribe
 
 ```json
 {
@@ -25,20 +42,10 @@
 }
 ```
 
-## `C->S` unsubscribe
+response:
 
-```json
-{
-  "_id":"xxxxxxxx"
-}
 ```
-
-## `S->C` unsubscribeSuccess
-
-```json
-{
-  "_id":"xxxxxxxx"
-}
+null
 ```
 
 

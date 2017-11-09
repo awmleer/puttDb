@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "jsondiffpatch": "^0.2.5",
+    "mongodb": "^2.2.33"
   }
 }

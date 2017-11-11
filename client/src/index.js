@@ -4,7 +4,6 @@ var document=null;
 // import io from 'socket.io-client';
 var serverUrl = 'http://192.168.0.3/';
 var net = require('net');
-var jsondiffpatch = require('./jsondiffpatch').create({});
 
 var testData;
 

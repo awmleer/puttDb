@@ -23,7 +23,11 @@ connection.on('data', function(data) {
         console.log('testData inited');
         console.log(testData);
     }else if(obj.meta=='change'){
-        // jsondiffpatch.
+        //todo diff & patch
+        testData=obj.payload;
+        console.log('--------------');
+        console.log('testData changed');
+        console.log(testData);
     }
 });
 

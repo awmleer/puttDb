@@ -48,7 +48,10 @@ response:
 null
 ```
 
+## `C->S` requestInit
 
+## `S->C` init
 
+## `S->C` change
 
-
+## `C->S` change

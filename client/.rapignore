@@ -2,7 +2,7 @@
 
 test/**
 
-src/*
+
 
 webpack.config.js
 

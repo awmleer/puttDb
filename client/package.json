@@ -3,12 +3,14 @@
     "version": "0.1.0",
     "description": "",
     "author": "",
-    "main": "dist/bundle.js",
+    "main": "src/index.js",
     "ruff": {
         "dependencies": {},
-        "version": 1
+        "version": 1,
+        "devDependencies": {}
     },
     "dependencies": {
+        "jsondiffpatch": "^0.2.5",
         "socket.io-client": "^2.0.4"
     },
     "devDependencies": {

@@ -1,19 +1,18 @@
 'use strict';
 
 var document=null;
-// import io from 'socket.io-client';
 var serverUrl = 'http://192.168.0.3/';
 var net = require('net');
 
 var testData;
 
-var client = net.connect(3001,"192.168.0.3", function(){ //'connect' listener
+var connection = net.connect(3001,"192.168.0.3", function(){ //'connect' listener
     console.log('connected to server!');
-    // client.write('world!\r\n');
+    // connection.write('world!\r\n');
     sendToServer('requestInit',null);
 });
 
-client.on('data', function(data) {
+connection.on('data', function(data) {
     console.log('--------------');
     console.log('Got data');
     console.log(data.toString());
@@ -28,14 +27,14 @@ client.on('data', function(data) {
     }
 });
 
-// client.end();
+// connection.end();
 
-client.on('end', function() {
+connection.on('end', function() {
     console.log('disconnected from server');
 });
 
 function sendToServer(meta, payload){
-    client.write(JSON.stringify({
+    connection.write(JSON.stringify({
         meta: meta,
         payload: payload
     }));

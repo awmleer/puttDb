@@ -3,7 +3,7 @@ import * as SocketIO from "socket.io";
 import {Server} from "http";
 import {DbManager} from "./db-manager";
 import {Socket} from "socket.io";
-import {ObservableDocument} from "./observable-document";
+import {ObservableDocument} from "../common/observable-document";
 
 
 

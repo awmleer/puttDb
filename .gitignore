@@ -1,8 +1,7 @@
 .idea/
 .rap/
 
-/server/dist/
-/client/dist/
+/dist/
 
 # Logs
 logs

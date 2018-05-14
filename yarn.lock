@@ -63,6 +63,10 @@
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
 
+"@types/socket.io-client@^1.4.32":
+  version "1.4.32"
+  resolved "http://registry.npm.taobao.org/@types/socket.io-client/download/@types/socket.io-client-1.4.32.tgz#988a65a0386c274b1c22a55377fab6a30789ac14"
+
 "@types/socket.io@^1.4.33":
   version "1.4.33"
   resolved "http://registry.npm.taobao.org/@types/socket.io/download/@types/socket.io-1.4.33.tgz#41e7e30e858b643519a139b8c93280390ccdff8d"
@@ -386,8 +390,8 @@ isarray@2.0.1:
   resolved "http://registry.npm.taobao.org/isarray/download/isarray-2.0.1.tgz#a37d94ed9cda2d59865c9f76fe596ee1f338741e"
 
 jsondiffpatch@0.x:
-  version "0.3.9"
-  resolved "http://registry.npm.taobao.org/jsondiffpatch/download/jsondiffpatch-0.3.9.tgz#355a4c5c09af720750acc0c2eb9e78f10a20b0fb"
+  version "0.3.10"
+  resolved "http://registry.npm.taobao.org/jsondiffpatch/download/jsondiffpatch-0.3.10.tgz#79b132ea4e50b370fd9f5b150625462a05fedcd2"
   dependencies:
     chalk "^2.3.0"
     diff-match-patch "^1.0.0"
@@ -561,7 +565,7 @@ socket.io-adapter@~1.1.0:
   version "1.1.1"
   resolved "http://registry.npm.taobao.org/socket.io-adapter/download/socket.io-adapter-1.1.1.tgz#2a805e8a14d6372124dd9159ad4502f8cb07f06b"
 
-socket.io-client@2.1.0:
+socket.io-client@2.1.0, socket.io-client@^2.1.0:
   version "2.1.0"
   resolved "http://registry.npm.taobao.org/socket.io-client/download/socket.io-client-2.1.0.tgz#0d0b21d460dc4ed36e57085136f2be0137ff20ff"
   dependencies:

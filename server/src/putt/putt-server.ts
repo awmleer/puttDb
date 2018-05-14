@@ -3,13 +3,13 @@ import * as SocketIO from "socket.io";
 import {Server} from "http";
 import {DbManager} from "./db-manager";
 import {Socket} from "socket.io";
+import {ObservableDocument} from "./observable-document";
+
 
 
 export class PuttServer {
   private io;
-  private documentSubjects:{
-    [id:string]: BehaviorSubject<Object>
-  } = {};
+  private observableDocumentMap:Map<string,ObservableDocument> = new Map<string,ObservableDocument>();
 
   constructor(httpServer: Server, private dbManager:DbManager){
     this.io = SocketIO(httpServer);
@@ -25,24 +25,24 @@ export class PuttServer {
       });
 
       socket.on('subscribe', async (data, callback) => {
-        let documentId = data.id;
-        let subject = this.documentSubjects[documentId];
-        if(!subject){
+        const documentId = data.id;
+        let od = this.observableDocumentMap.get(documentId);
+        if(!od){
           let doc = await dbManager.findOneById(documentId);
-          subject = new BehaviorSubject<Object>(doc);
-          this.documentSubjects[documentId] = subject;
+          od = new ObservableDocument(doc);
+          this.observableDocumentMap.set(documentId, od);
         }
-        let subscription:Subscription = subject.subscribe({
-          next: (v) => {
-            // socket.emit();
-            // TODO notify the client
+        const subscription:Subscription = od.deltaStream.subscribe({
+          next: (delta) => {
+            socket.emit('documentUpdated', {
+              delta: delta
+            });
           }
         });
         subscriptions.push(subscription);
         console.log(data);
         BehaviorSubject.create();
-        callback(subject.value);
-
+        callback(od.value);
       });
 
     });

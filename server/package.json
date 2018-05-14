@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/mongodb": "^3.0.18",
+    "@types/node": "^10.0.8",
     "express": "4.x",
     "jsondiffpatch": "0.x",
     "mongodb": "3.x",

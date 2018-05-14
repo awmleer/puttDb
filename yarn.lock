@@ -143,6 +143,10 @@ bson@~1.0.4:
   version "1.0.6"
   resolved "http://registry.npm.taobao.org/bson/download/bson-1.0.6.tgz#444db59ddd4c24f0cb063aabdc5c8c7b0ceca912"
 
+buffer-from@^1.0.0:
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/buffer-from/download/buffer-from-1.0.0.tgz#4cb8832d23612589b0406e9e2956c17f06fdf531"
+
 bytes@3.0.0:
   version "3.0.0"
   resolved "http://registry.npm.taobao.org/bytes/download/bytes-3.0.0.tgz#d32815404d689699f85a4ea4fa8755dd13a96048"
@@ -602,6 +606,17 @@ socket.io@^2.1.0:
     socket.io-adapter "~1.1.0"
     socket.io-client "2.1.0"
     socket.io-parser "~3.2.0"
+
+source-map-support@^0.5.5:
+  version "0.5.5"
+  resolved "http://registry.npm.taobao.org/source-map-support/download/source-map-support-0.5.5.tgz#0d4af9e00493e855402e8ec36ebed2d266fceb90"
+  dependencies:
+    buffer-from "^1.0.0"
+    source-map "^0.6.0"
+
+source-map@^0.6.0:
+  version "0.6.1"
+  resolved "http://registry.npm.taobao.org/source-map/download/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
 
 "statuses@>= 1.3.1 < 2", "statuses@>= 1.4.0 < 2":
   version "1.5.0"

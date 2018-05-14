@@ -1,7 +1,6 @@
 import {Observable, Subject} from "rxjs/index";
 const jsondiffpatch = require('jsondiffpatch').create();
 
-
 export class ObservableDocument {
   private _value:Object;
   public deltaStream: Subject<Object> = new Subject();

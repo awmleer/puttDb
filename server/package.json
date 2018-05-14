@@ -12,6 +12,7 @@
     "express": "4.x",
     "jsondiffpatch": "0.x",
     "mongodb": "3.x",
+    "rxjs": "^6.1.0",
     "socket.io": "^2.1.0"
   }
 }

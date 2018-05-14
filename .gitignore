@@ -1,6 +1,9 @@
 .idea/
 .rap/
 
+/server/dist/
+/client/dist/
+
 # Logs
 logs
 *.log

@@ -1,7 +1,8 @@
-import {BehaviorSubject} from "rxjs/index";
+import {BehaviorSubject, Subscription} from "rxjs/index";
 import * as SocketIO from "socket.io";
 import {Server} from "http";
 import {DbManager} from "./db-manager";
+import {Socket} from "socket.io";
 
 
 export class PuttServer {
@@ -12,12 +13,11 @@ export class PuttServer {
 
   constructor(httpServer: Server, private dbManager:DbManager){
     this.io = SocketIO(httpServer);
-    this.io.on('connection', (socket) => {
+    this.io.on('connection', (socket:Socket) => {
       console.log('a user connected');
+      let subscriptions:Subscription[] = [];
 
-      let subscriptions = [];
-
-      socket.on('disconnect', function(){
+      socket.on('disconnect', () => {
         console.log('user disconnected');
         for(let subscription of subscriptions){
           subscription.unsubscribe();
@@ -32,7 +32,7 @@ export class PuttServer {
           subject = new BehaviorSubject<Object>(doc);
           this.documentSubjects[documentId] = subject;
         }
-        let subscription = subject.subscribe({
+        let subscription:Subscription = subject.subscribe({
           next: (v) => {
             // socket.emit();
             // TODO notify the client
@@ -44,6 +44,7 @@ export class PuttServer {
         callback(subject.value);
 
       });
+
     });
   }
 

@@ -1,7 +1,7 @@
 // let MongoClient = require('mongodb').MongoClient;
 
 import * as assert from "assert";
-import {MongoClient} from "mongodb";
+import {MongoClient, ObjectID} from "mongodb";
 
 export class DbManager{
   db;
@@ -23,4 +23,23 @@ export class DbManager{
       });
     });
   }
+
+  find(o:Object):Promise<Object[]>{
+    return new Promise(resolve => {
+      this.collection.find(o).toArray((err, docs) => {
+        console.log(docs);
+        resolve(docs);
+      });
+    });
+  }
+
+  async findOne(o:Object):Promise<Object>{
+    let docs = await this.find(o);
+    return docs[0];
+  }
+
+  async findOneById(id:string):Promise<Object>{
+    return await this.findOne(new ObjectID(id));
+  }
+
 }

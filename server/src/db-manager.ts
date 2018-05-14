@@ -1,5 +1,3 @@
-// let MongoClient = require('mongodb').MongoClient;
-
 import * as assert from "assert";
 import {MongoClient, ObjectID} from "mongodb";
 

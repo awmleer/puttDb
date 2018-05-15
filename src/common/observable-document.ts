@@ -9,6 +9,11 @@ export interface ObservableDocumentChange {
 export class ObservableDocument {
   private _value:Object;
   public changeSubject: Subject<Object> = new Subject();
+
+  constructor(value:Object){
+    this.value = value;
+  }
+
   private getProxyHandler(path):ProxyHandler<Object>{
     return {
       get: (target:Object, p: PropertyKey, receiver: any):any => {
@@ -42,21 +47,27 @@ export class ObservableDocument {
     };
   }
 
-  constructor(value:Object){
-    this.value = value;
-  }
-
   public get value():Object{
     return new Proxy(this._value, this.getProxyHandler([]));
   }
   public set value(newValue:Object){
-    // const delta = jsondiffpatch.diff(this._value, newValue);
-    // this.changeSubject.next(delta);
     this._value = newValue;
   }
 
   public get json():string{
     return JSON.stringify(this._value);
+  }
+
+  public applyChange(change:ObservableDocumentChange){
+    let obj = this._value;
+    let i;
+    for (i = 0; i < change.path.length-1; i++) {
+      // if(obj[change.path[i]] == null){
+      //   obj[change.path[i]] = {};
+      // }
+      obj = obj[change.path[i]];
+    }
+    obj[change.path[i]] = change.value;
   }
 
 }

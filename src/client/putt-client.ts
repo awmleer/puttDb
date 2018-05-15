@@ -49,7 +49,7 @@ export class PuttClient {
       }, (data) => {
         console.log(data);
         const od = new ObservableDocument(data);
-        od.changeSubject.subscribe((change:ObservableDocumentChange)=>{
+        od.changeSubject.subscribe((change:ObservableDocumentChange) => {
           this.socket.emit('update', {
             documentId: od.id,
             change: change

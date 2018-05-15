@@ -4,10 +4,11 @@ const jsondiffpatch = require('jsondiffpatch').create();
 export interface ObservableDocumentChange {
   path: (string|number)[];
   value: any;
+  from?: any;
 }
 
 export class ObservableDocument {
-  private _value:Object;
+  public _value:Object;
   public changeSubject: Subject<Object> = new Subject();
 
   private _id: string;
@@ -64,7 +65,7 @@ export class ObservableDocument {
     return JSON.stringify(this._value);
   }
 
-  public applyChange(change:ObservableDocumentChange){
+  public applyChange(change:ObservableDocumentChange, slient:boolean=true, from:any=null){
     let obj = this._value;
     let i;
     for (i = 0; i < change.path.length-1; i++) {
@@ -74,6 +75,10 @@ export class ObservableDocument {
       obj = obj[change.path[i]];
     }
     obj[change.path[i]] = change.value;
+    change.from = from;
+    if(!slient){
+      this.changeSubject.next(change);
+    }
   }
 
 }

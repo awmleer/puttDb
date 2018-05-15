@@ -1,9 +1,9 @@
-import {BehaviorSubject, Subscription} from "rxjs/index";
+import {BehaviorSubject, from, Subscription} from "rxjs/index";
 import * as SocketIO from "socket.io";
 import {Server} from "http";
 import {DbManager} from "./db-manager";
 import {Socket} from "socket.io";
-import {ObservableDocument} from "../common/observable-document";
+import {ObservableDocument, ObservableDocumentChange} from "../common/observable-document";
 
 
 
@@ -34,7 +34,8 @@ export class PuttServer {
           this.observableDocumentMap.set(documentId, od);
         }
         const subscription:Subscription = od.changeSubject.subscribe({
-          next: (change) => {
+          next: (change:ObservableDocumentChange) => {
+            if(change.from == socket) return;
             socket.emit('update', {
               documentId: od.id,
               change: change
@@ -43,17 +44,19 @@ export class PuttServer {
         });
         subscriptions.push(subscription);
         BehaviorSubject.create();
-        callback(od.json);
+        callback(od._value);
       });
 
       socket.on('unsubscribe', (data, callback) => {
-
+        const od = this.observableDocumentMap.get(data.documentId);
+        od.changeSubject.complete();
+        this.observableDocumentMap.delete(data.documentId);
       });
 
       socket.on('update', (data, callback) => {
         const od = this.observableDocumentMap.get(data.documentId);
-        od.applyChange(data.change);
-        socket.broadcast.emit('update', data);
+        od.applyChange(data.change, false, socket);
+        // socket.broadcast.emit('update', data);
       });
 
     });

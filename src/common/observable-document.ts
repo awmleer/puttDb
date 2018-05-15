@@ -10,8 +10,14 @@ export class ObservableDocument {
   private _value:Object;
   public changeSubject: Subject<Object> = new Subject();
 
+  private _id: string;
+  public get id():string{
+    return this._id;
+  }
+
   constructor(value:Object){
     this.value = value;
+    this._id = value['_id'];
   }
 
   private getProxyHandler(path):ProxyHandler<Object>{

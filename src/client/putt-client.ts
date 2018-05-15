@@ -11,35 +11,52 @@ export class PuttClient {
 
   constructor(endpoint:string){
     this.endpoint = endpoint;
-    this.socket.on('connect', () => {
-      console.log('connect');
-    });
+  }
+
+  connect():Promise<void>{
+    this.socket = socketClient.connect(this.endpoint);
     this.socket.on('update', (data) => {
       console.log(data);
       const od = this.observableDocumentMap.get(data.documentId);
-
+      od.applyChange(data.change);
     });
     this.socket.on('event', function(data){});
     this.socket.on('disconnect', function(){});
+    return new Promise(resolve => {
+      this.socket.on('connect', () => {
+        console.log('connect');
+        resolve();
+      });
+    });
+  }
+
+  reconnect(){
+    if (this.socket) {
+      this.disconnect();
+    }
     this.connect();
   }
 
-  connect(){
-    this.socket = socketClient(this.endpoint);
+  disconnect(){
+    this.socket.disconnect();
+    console.log('socket closed');
   }
 
-  subscribe(id:string):Promise<void>{
+  subscribe(id:string):Promise<ObservableDocument>{
     return new Promise(resolve => {
       this.socket.emit('subscribe', {
-        documentId: '5af42dee0dcefe76670de405'
+        documentId: id
       }, (data) => {
         console.log(data);
         const od = new ObservableDocument(data);
         od.changeSubject.subscribe((change:ObservableDocumentChange)=>{
-          od.applyChange(change);
+          this.socket.emit('update', {
+            documentId: od.id,
+            change: change
+          });
         });
         this.observableDocumentMap.set(id, od);
-        resolve();
+        resolve(od);
       });
     });
   }

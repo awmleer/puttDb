@@ -25,24 +25,35 @@ export class PuttServer {
       });
 
       socket.on('subscribe', async (data, callback) => {
-        const documentId = data.id;
+        const documentId = data.documentId;
         let od = this.observableDocumentMap.get(documentId);
         if(!od){
           let doc = await dbManager.findOneById(documentId);
+          console.log(doc);
           od = new ObservableDocument(doc);
           this.observableDocumentMap.set(documentId, od);
         }
         const subscription:Subscription = od.changeSubject.subscribe({
-          next: (delta) => {
-            socket.emit('documentUpdated', {
-              delta: delta
+          next: (change) => {
+            socket.emit('update', {
+              documentId: od.id,
+              change: change
             });
           }
         });
         subscriptions.push(subscription);
-        console.log(data);
         BehaviorSubject.create();
-        callback(od.value);
+        callback(od.json);
+      });
+
+      socket.on('unsubscribe', (data, callback) => {
+
+      });
+
+      socket.on('update', (data, callback) => {
+        const od = this.observableDocumentMap.get(data.documentId);
+        od.applyChange(data.change);
+        socket.broadcast.emit('update', data);
       });
 
     });

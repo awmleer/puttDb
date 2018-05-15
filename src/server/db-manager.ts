@@ -32,8 +32,12 @@ export class DbManager{
   }
 
   async findOne(o:Object):Promise<Object>{
-    let docs = await this.find(o);
-    return docs[0];
+    return new Promise(resolve => {
+      this.collection.findOne(o, (err, doc) => {
+        console.log(doc);
+        resolve(doc);
+      });
+    });
   }
 
   async findOneById(id:string):Promise<Object>{

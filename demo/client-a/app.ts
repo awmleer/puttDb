@@ -12,13 +12,16 @@ const rl = readline.createInterface({
 
 rl.question('Please input the document id you would like to subscribe:', async (documentId) => {
   rl.close();
-  const putt = new PuttClient('http://localhost:3000');
+  const putt = new PuttClient('http://120.27.121.63:3000');
   // const putt = new PuttClient('http://localhost:3000');
   await putt.connect();
   const od:ObservableDocument = await putt.subscribe(documentId);
-  setTimeout(() => {
-    od.value['a'] = 2;
-  }, 5000);
+  console.log(od._value);
+  od.value['temperature'] = 20;
+  od.value['count']['x'] += 1;
+  od.changeSubject.subscribe(() => {
+    //do something to update LCD
+  });
   console.log(od._value);
 });
 

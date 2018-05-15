@@ -1,17 +1,27 @@
 import {PuttClient} from '../../src/client/putt-client';
 import {ObservableDocument, ObservableDocumentChange} from "../../src/common/observable-document";
+import * as readline from 'readline';
+import {async} from "rxjs/internal/scheduler/async";
 
 require('source-map-support').install();
 
-const putt = new PuttClient('http://localhost:3000');
-putt.connect().then(() => {
-  putt.subscribe('5af42dee0dcefe76670de405').then((od: ObservableDocument) => {
-    setTimeout(() => {
-      od.value['a'] = 2;
-    }, 5000);
-    console.log(od._value);
-  });
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
 });
+
+rl.question('Please input the document id you would like to subscribe:', async (documentId) => {
+  rl.close();
+  const putt = new PuttClient('http://localhost:3000');
+  await putt.connect();
+  const od:ObservableDocument = await putt.subscribe(documentId);
+  setTimeout(() => {
+    od.value['a'] = 2;
+  }, 5000);
+  console.log(od._value);
+});
+
+
 
 
 

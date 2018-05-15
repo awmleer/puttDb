@@ -35,10 +35,7 @@ export class PuttServer {
         }
         const subscription:Subscription = od.changeSubject.subscribe({
           next: (change:ObservableDocumentChange) => {
-            console.log('check');
             if(change.from == socket) return;
-            console.log('this is the fucking change');
-            console.log(change);
             socket.emit('update', {
               documentId: od.id,
               change: {

@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "complie": "tsc",
-    "client": "node dist/demo/client/app.js",
-    "server": "node dist/demo/server/app.js"
+    "client": "tsc && node dist/demo/client/app.js",
+    "server": "tsc && node dist/demo/server/app.js"
   },
   "dependencies": {
     "@types/mongodb": "^3.0.18",

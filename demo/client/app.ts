@@ -9,12 +9,17 @@ let od = new ObservableDocument({
   a: 1
 });
 
-let x = od.value;
-x['a'] = {
-  b: 2
-};
+// console.log(od);
 
-console.log(x);
+// console.log(JSON.stringify(od.value));
+console.log(od.value);
+//
+// let x = od.value;
+// x['a'] = {
+//   b: 2
+// };
+//
+// console.log(od.value);
 
 
 

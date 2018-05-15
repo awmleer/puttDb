@@ -32,7 +32,7 @@ export class PuttServer {
           od = new ObservableDocument(doc);
           this.observableDocumentMap.set(documentId, od);
         }
-        const subscription:Subscription = od.deltaStream.subscribe({
+        const subscription:Subscription = od.changeSubject.subscribe({
           next: (delta) => {
             socket.emit('documentUpdated', {
               delta: delta

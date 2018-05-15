@@ -35,16 +35,32 @@ export class PuttServer {
         }
         const subscription:Subscription = od.changeSubject.subscribe({
           next: (change:ObservableDocumentChange) => {
+            console.log('check');
             if(change.from == socket) return;
+            console.log('this is the fucking change');
+            console.log(change);
             socket.emit('update', {
               documentId: od.id,
-              change: change
+              change: {
+                path: change.path,
+                value: change.value
+              }
             });
+            console.log('send update');
           }
         });
         subscriptions.push(subscription);
         BehaviorSubject.create();
         callback(od._value);
+        // setTimeout(() => {
+        //   socket.emit('update', {
+        //     documentId: od.id,
+        //     change: {
+        //       path: ['a'],
+        //       value: 123
+        //     }
+        //   });
+        // }, 2000);
       });
 
       socket.on('unsubscribe', (data, callback) => {
@@ -54,6 +70,7 @@ export class PuttServer {
       });
 
       socket.on('update', (data, callback) => {
+        console.log('got update');
         const od = this.observableDocumentMap.get(data.documentId);
         od.applyChange(data.change, false, socket);
         // socket.broadcast.emit('update', data);

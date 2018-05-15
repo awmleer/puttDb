@@ -11,7 +11,7 @@ export class ObservableDocument {
   public _value:Object;
   public changeSubject: Subject<Object> = new Subject();
 
-  private _id: string;
+  private readonly _id: string;
   public get id():string{
     return this._id;
   }
@@ -79,6 +79,8 @@ export class ObservableDocument {
     if(!slient){
       this.changeSubject.next(change);
     }
+    console.log('od updated');
+    console.log(this._value);
   }
 
 }

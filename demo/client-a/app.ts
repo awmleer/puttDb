@@ -13,6 +13,7 @@ const rl = readline.createInterface({
 rl.question('Please input the document id you would like to subscribe:', async (documentId) => {
   rl.close();
   const putt = new PuttClient('http://localhost:3000');
+  // const putt = new PuttClient('http://localhost:3000');
   await putt.connect();
   const od:ObservableDocument = await putt.subscribe(documentId);
   setTimeout(() => {

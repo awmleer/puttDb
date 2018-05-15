@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "complie": "tsc",
+    "compile": "tsc",
     "client-a": "node dist/demo/client-a/app.js",
     "client-b": "node dist/demo/client-b/app.js",
     "server": "node dist/demo/server/app.js"

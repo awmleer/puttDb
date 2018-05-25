@@ -18,7 +18,7 @@ export class PuttClient {
     this.socket.on('update', (data) => {
       console.log(data);
       const od = this.observableDocumentMap.get(data.documentId);
-      od.applyChange(data.change);
+      od.applyChange(data.change, false, this.socket);
     });
     this.socket.on('event', function(data){});
     this.socket.on('disconnect', function(){});
@@ -50,6 +50,7 @@ export class PuttClient {
         console.log(data);
         const od = new ObservableDocument(data);
         od.changeSubject.subscribe((change:ObservableDocumentChange) => {
+          if(change.from == this.socket) return;
           this.socket.emit('update', {
             documentId: od.id,
             change: change

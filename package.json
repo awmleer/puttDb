@@ -15,6 +15,7 @@
     "@types/socket.io-client": "^1.4.32",
     "jsondiffpatch": "0.x",
     "mongodb": "3.x",
+    "onoff": "^3.1.0",
     "rxjs": "^6.1.0",
     "socket.io": "^2.1.0",
     "socket.io-client": "^2.1.0",
